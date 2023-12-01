@@ -7,6 +7,13 @@ const stripe = require("stripe")(process.env.PAYMENT_SECRET_KEY);
 const port = process.env.PORT || 5000;
 
 //middleware
+// app.use(
+//   cors({
+//     origin: ["https://bistro-boss-server-two-gilt.vercel.app"],
+//     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+//     credentials: true,
+//   })
+// );
 app.use(cors());
 app.use(express.json());
 
@@ -181,7 +188,7 @@ async function run() {
     });
 
     // payment related api
-    app.post("/payments", verifyJWT, async (req, res) => {
+    app.post("/payments", async (req, res) => {
       const payment = req.body;
       const insertResult = await paymentCollection.insertOne(payment);
 
